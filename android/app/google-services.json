@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "430335870359",
+    "project_id": "agrobanco-rural-hb",
+    "storage_bucket": "agrobanco-rural-hb.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:430335870359:android:b9c70673271ed2d2c030d2",
+        "android_client_info": {
+          "package_name": "com.example.agrobanco_home_banking"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbKorOCs9ZUwZ9wcAfAUfOc3FSyGnotsA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
