@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../theme/agro_theme.dart';
+import '../theme/glass_widgets.dart';
 
 class TransfersScreen extends StatefulWidget {
   const TransfersScreen({super.key});
@@ -11,6 +12,7 @@ class TransfersScreen extends StatefulWidget {
 
 class _TransfersScreenState extends State<TransfersScreen> with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  final _destinationController = TextEditingController();
 
   @override
   void initState() {
@@ -19,11 +21,18 @@ class _TransfersScreenState extends State<TransfersScreen> with SingleTickerProv
   }
 
   @override
+  void dispose() {
+    _tabController.dispose();
+    _destinationController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AgroTheme.backgroundCream,
+      backgroundColor: Colors.transparent,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.transparent,
         elevation: 0,
         leading: const Padding(
           padding: EdgeInsets.all(8.0),
@@ -59,19 +68,22 @@ class _TransfersScreenState extends State<TransfersScreen> with SingleTickerProv
           ],
         ),
       ),
-      body: TabBarView(
-        controller: _tabController,
-        children: [
-          _buildTransferTab(),
-          const Center(child: Text('Pagar servicios')),
-          const Center(child: Text('QR Agro')),
-        ],
+      body: GlassBackground(
+        child: TabBarView(
+          controller: _tabController,
+          children: [
+            _buildTransferTab(),
+            const Center(child: Text('Pagar servicios', style: TextStyle(fontWeight: FontWeight.bold, color: AgroTheme.textDark))),
+            const Center(child: Text('QR Agro', style: TextStyle(fontWeight: FontWeight.bold, color: AgroTheme.textDark))),
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildTransferTab() {
     return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
       padding: const EdgeInsets.all(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -87,26 +99,38 @@ class _TransfersScreenState extends State<TransfersScreen> with SingleTickerProv
           const SizedBox(height: 16),
           _buildFrequentContacts(),
           const SizedBox(height: 32),
-          Text(
-            'Cuenta destino',
-            style: GoogleFonts.roboto(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: AgroTheme.textDark,
+          GlassCard(
+            borderRadius: 20,
+            backgroundOpacity: 0.5,
+            padding: const EdgeInsets.all(24),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Cuenta destino',
+                  style: GoogleFonts.roboto(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: AgroTheme.textDark,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                GlassTextField(
+                  controller: _destinationController,
+                  hintText: 'Número de cuenta o CCI',
+                  prefixIcon: const Icon(Icons.account_balance_outlined, size: 20),
+                  suffixIcon: IconButton(
+                    icon: const Icon(Icons.contact_page_outlined, size: 20),
+                    onPressed: () {},
+                  ),
+                ),
+                const SizedBox(height: 28),
+                GlassButton(
+                  text: 'Continuar',
+                  onPressed: () => _showConfirmationModal(context),
+                ),
+              ],
             ),
-          ),
-          const SizedBox(height: 12),
-          TextField(
-            decoration: InputDecoration(
-              hintText: 'Número de cuenta o CCI',
-              hintStyle: const TextStyle(color: AgroTheme.textMuted),
-              suffixIcon: const Icon(Icons.contact_page_outlined, color: AgroTheme.primaryGreen),
-            ),
-          ),
-          const SizedBox(height: 40),
-          ElevatedButton(
-            onPressed: () => _showConfirmationModal(context),
-            child: const Text('Continuar'),
           ),
         ],
       ),
@@ -121,9 +145,10 @@ class _TransfersScreenState extends State<TransfersScreen> with SingleTickerProv
     ];
 
     return SizedBox(
-      height: 90,
+      height: 95,
       child: ListView(
         scrollDirection: Axis.horizontal,
+        physics: const BouncingScrollPhysics(),
         children: [
           ...contacts.map((c) => _buildContactItem(c['name']!, c['url']!)),
           _buildNewContactItem(),
@@ -139,11 +164,11 @@ class _TransfersScreenState extends State<TransfersScreen> with SingleTickerProv
         children: [
           CircleAvatar(
             radius: 30,
-            backgroundColor: AgroTheme.primaryGreen.withOpacity(0.1),
-            child: const Icon(Icons.person, color: AgroTheme.primaryGreen),
+            backgroundColor: AgroTheme.primaryGreen.withOpacity(0.15),
+            child: const Icon(Icons.person, color: AgroTheme.primaryGreen, size: 28),
           ),
           const SizedBox(height: 8),
-          Text(name, style: const TextStyle(fontSize: 12, color: AgroTheme.textDark)),
+          Text(name, style: const TextStyle(fontSize: 12, color: AgroTheme.textDark, fontWeight: FontWeight.w600)),
         ],
       ),
     );
@@ -157,12 +182,13 @@ class _TransfersScreenState extends State<TransfersScreen> with SingleTickerProv
           height: 60,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            border: Border.all(color: Colors.grey.shade300, style: BorderStyle.solid),
+            border: Border.all(color: Colors.white.withOpacity(0.5), width: 1.5),
+            color: Colors.white.withOpacity(0.2),
           ),
-          child: const Icon(Icons.add, color: AgroTheme.textMuted),
+          child: const Icon(Icons.add, color: AgroTheme.textDark),
         ),
         const SizedBox(height: 8),
-        const Text('Nuevo', style: TextStyle(fontSize: 12, color: AgroTheme.textMuted)),
+        const Text('Nuevo', style: TextStyle(fontSize: 12, color: AgroTheme.textMuted, fontWeight: FontWeight.w600)),
       ],
     );
   }
@@ -172,12 +198,11 @@ class _TransfersScreenState extends State<TransfersScreen> with SingleTickerProv
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (context) => Container(
+      builder: (context) => GlassCard(
+        borderRadius: 24,
+        backgroundOpacity: 0.85,
         padding: const EdgeInsets.all(24),
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-        ),
+        borderOpacity: 0.4,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -195,7 +220,7 @@ class _TransfersScreenState extends State<TransfersScreen> with SingleTickerProv
                 ),
                 IconButton(
                   onPressed: () => Navigator.pop(context),
-                  icon: const Icon(Icons.close),
+                  icon: const Icon(Icons.close, color: AgroTheme.textDark),
                 ),
               ],
             ),
@@ -207,8 +232,9 @@ class _TransfersScreenState extends State<TransfersScreen> with SingleTickerProv
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: const Color(0xFFFFF9E6),
+                color: const Color(0xFFFFF9E6).withOpacity(0.85),
                 borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: AgroTheme.secondaryYellow.withOpacity(0.3)),
               ),
               child: Row(
                 children: [
@@ -217,17 +243,16 @@ class _TransfersScreenState extends State<TransfersScreen> with SingleTickerProv
                   const Expanded(
                     child: Text(
                       'Esta operación es segura. Se validará su identidad en el siguiente paso.',
-                      style: TextStyle(fontSize: 13, color: Color(0xFF856404)),
+                      style: TextStyle(fontSize: 13, color: Color(0xFF856404), fontWeight: FontWeight.w600),
                     ),
                   ),
                 ],
               ),
             ),
             const SizedBox(height: 32),
-            ElevatedButton(
+            GlassButton(
+              text: 'Confirmar transferencia',
               onPressed: () => Navigator.pop(context),
-              style: ElevatedButton.styleFrom(backgroundColor: AgroTheme.primaryGreen),
-              child: const Text('Confirmar transferencia'),
             ),
             const SizedBox(height: 12),
           ],
@@ -242,11 +267,11 @@ class _TransfersScreenState extends State<TransfersScreen> with SingleTickerProv
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label, style: const TextStyle(color: AgroTheme.textMuted)),
+          Text(label, style: const TextStyle(color: AgroTheme.textMuted, fontWeight: FontWeight.w500)),
           Text(
             value,
             style: TextStyle(
-              fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
+              fontWeight: isBold ? FontWeight.bold : FontWeight.w600,
               color: AgroTheme.textDark,
             ),
           ),

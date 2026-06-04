@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../theme/agro_theme.dart';
+import '../theme/glass_widgets.dart';
 import '../services/banking_services.dart';
 import '../utils/seed_data.dart';
 import 'main_screen.dart';
@@ -83,122 +84,129 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Container(
-          height: MediaQuery.of(context).size.height,
-          padding: const EdgeInsets.symmetric(horizontal: 32),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const Spacer(flex: 2),
-              Center(
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
+      body: GlassBackground(
+        child: SafeArea(
+          child: Center(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    const Icon(Icons.agriculture_rounded, color: AgroTheme.primaryGreen, size: 40),
-                    const SizedBox(width: 12),
-                    Text(
-                      'Agrobanco',
-                      style: GoogleFonts.roboto(
-                        fontSize: 32,
-                        fontWeight: FontWeight.bold,
-                        color: AgroTheme.primaryGreen,
+                    const SizedBox(height: 20),
+                    Center(
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(Icons.agriculture_rounded, color: AgroTheme.primaryGreen, size: 44),
+                          const SizedBox(width: 12),
+                          Text(
+                            'Agrobanco',
+                            style: GoogleFonts.roboto(
+                              fontSize: 34,
+                              fontWeight: FontWeight.bold,
+                              color: AgroTheme.primaryGreen,
+                              letterSpacing: 1.0,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'Banca Móvil Rural',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.roboto(
+                        fontSize: 15,
+                        color: AgroTheme.textMuted,
+                        letterSpacing: 3,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 36),
+                    GlassCard(
+                      padding: const EdgeInsets.all(28.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Text(
+                            'Bienvenido',
+                            style: GoogleFonts.roboto(
+                              fontSize: 28,
+                              fontWeight: FontWeight.bold,
+                              color: AgroTheme.textDark,
+                            ),
+                          ),
+                          const SizedBox(height: 6),
+                          const Text(
+                            'Ingresa tus credenciales para acceder a tu banca móvil.',
+                            style: TextStyle(color: AgroTheme.textMuted, fontSize: 13.5, height: 1.4),
+                          ),
+                          const SizedBox(height: 28),
+                          _buildLabel('Correo electrónico'),
+                          GlassTextField(
+                            controller: _emailController,
+                            keyboardType: TextInputType.emailAddress,
+                            hintText: 'ejemplo@agrobanco.pe',
+                            prefixIcon: const Icon(Icons.email_outlined, size: 20),
+                          ),
+                          const SizedBox(height: 20),
+                          _buildLabel('Contraseña'),
+                          GlassTextField(
+                            controller: _passwordController,
+                            obscureText: _obscurePassword,
+                            hintText: '••••••••',
+                            prefixIcon: const Icon(Icons.lock_outline, size: 20),
+                            suffixIcon: IconButton(
+                              icon: Icon(_obscurePassword ? Icons.visibility_off_outlined : Icons.visibility_outlined, size: 20),
+                              onPressed: () => setState(() => _obscurePassword = !_obscurePassword),
+                            ),
+                          ),
+                          const SizedBox(height: 12),
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: TextButton(
+                              onPressed: () {},
+                              style: TextButton.styleFrom(padding: EdgeInsets.zero),
+                              child: const Text('¿Olvidaste tu contraseña?', style: TextStyle(color: AgroTheme.primaryGreen, fontWeight: FontWeight.bold, fontSize: 13)),
+                            ),
+                          ),
+                          const SizedBox(height: 24),
+                          if (_isLoading)
+                            const Center(child: CircularProgressIndicator(color: AgroTheme.primaryGreen))
+                          else ...[
+                            GlassButton(
+                              text: 'Iniciar sesión',
+                              onPressed: _handleLogin,
+                            ),
+                            const SizedBox(height: 16),
+                            GlassButton(
+                              text: 'Acceso Demo (Auto-Seed)',
+                              onPressed: _handleDemoLogin,
+                              isSecondary: true,
+                              icon: Icons.flash_on_rounded,
+                            ),
+                          ],
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text('¿No tienes cuenta?', style: TextStyle(color: AgroTheme.textDark, fontWeight: FontWeight.w500)),
+                        TextButton(
+                          onPressed: () {},
+                          child: const Text('Regístrate aquí', style: TextStyle(color: AgroTheme.primaryGreen, fontWeight: FontWeight.bold)),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
                   ],
                 ),
               ),
-              const SizedBox(height: 16),
-              Text(
-                'Banca Móvil Rural',
-                textAlign: TextAlign.center,
-                style: GoogleFonts.roboto(
-                  fontSize: 16,
-                  color: AgroTheme.textMuted,
-                  letterSpacing: 2,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              const Spacer(flex: 1),
-              Text(
-                'Bienvenido',
-                style: GoogleFonts.roboto(
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                  color: AgroTheme.textDark,
-                ),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                'Ingresa tus credenciales para acceder a tu banca móvil.',
-                style: TextStyle(color: AgroTheme.textMuted, fontSize: 14),
-              ),
-              const SizedBox(height: 48),
-              _buildLabel('Correo electrónico'),
-              TextField(
-                controller: _emailController,
-                keyboardType: TextInputType.emailAddress,
-                decoration: const InputDecoration(
-                  hintText: 'ejemplo@agrobanco.pe',
-                  prefixIcon: Icon(Icons.email_outlined, size: 20),
-                ),
-              ),
-              const SizedBox(height: 24),
-              _buildLabel('Contraseña'),
-              TextField(
-                controller: _passwordController,
-                obscureText: _obscurePassword,
-                decoration: InputDecoration(
-                  hintText: '••••••••',
-                  prefixIcon: const Icon(Icons.lock_outline, size: 20),
-                  suffixIcon: IconButton(
-                    icon: Icon(_obscurePassword ? Icons.visibility_off_outlined : Icons.visibility_outlined, size: 20),
-                    onPressed: () => setState(() => _obscurePassword = !_obscurePassword),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 12),
-              Align(
-                alignment: Alignment.centerRight,
-                child: TextButton(
-                  onPressed: () {},
-                  child: const Text('¿Olvidaste tu contraseña?', style: TextStyle(color: AgroTheme.primaryGreen, fontWeight: FontWeight.bold, fontSize: 13)),
-                ),
-              ),
-              const SizedBox(height: 32),
-              if (_isLoading)
-                const Center(child: CircularProgressIndicator(color: AgroTheme.primaryGreen))
-              else ...[
-                ElevatedButton(
-                  onPressed: _handleLogin,
-                  child: const Text('Iniciar sesión'),
-                ),
-                const SizedBox(height: 16),
-                OutlinedButton(
-                  onPressed: _handleDemoLogin,
-                  style: OutlinedButton.styleFrom(
-                    side: const BorderSide(color: AgroTheme.secondaryYellow),
-                    foregroundColor: AgroTheme.textDark,
-                    backgroundColor: AgroTheme.secondaryYellow.withOpacity(0.1),
-                  ),
-                  child: const Text('Acceso Demo (Auto-Seed)', style: TextStyle(fontWeight: FontWeight.bold)),
-                ),
-              ],
-              const Spacer(flex: 2),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text('¿No tienes cuenta?'),
-                  TextButton(
-                    onPressed: () {},
-                    child: const Text('Regístrate aquí', style: TextStyle(color: AgroTheme.primaryGreen, fontWeight: FontWeight.bold)),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 32),
-            ],
+            ),
           ),
         ),
       ),
@@ -215,3 +223,4 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     );
   }
 }
+

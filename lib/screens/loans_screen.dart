@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../theme/agro_theme.dart';
+import '../theme/glass_widgets.dart';
 import '../services/banking_services.dart';
 import '../models/banking_models.dart';
 
@@ -13,9 +14,9 @@ class LoansScreen extends ConsumerWidget {
     final accounts = ref.watch(accountsProvider);
 
     return Scaffold(
-      backgroundColor: AgroTheme.backgroundCream,
+      backgroundColor: Colors.transparent,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.transparent,
         elevation: 0,
         title: Text(
           'Agrobanco',
@@ -42,62 +43,65 @@ class LoansScreen extends ConsumerWidget {
         onPressed: () {},
         backgroundColor: AgroTheme.secondaryYellow,
         foregroundColor: AgroTheme.textDark,
-        icon: const Icon(Icons.payments_outlined),
+        icon: const Icon(Icons.payments_outlined, fontWeight: FontWeight.bold),
         label: const Text('Pagar cuota', style: TextStyle(fontWeight: FontWeight.bold)),
       ),
-      body: accounts.when(
-        data: (accs) {
-          final loan = accs.where((a) => a.type == AccountType.loan).firstOrNull;
-          return SingleChildScrollView(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Mis Créditos',
-                  style: GoogleFonts.roboto(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: AgroTheme.primaryGreen,
+      body: GlassBackground(
+        child: accounts.when(
+          data: (accs) {
+            final loan = accs.where((a) => a.type == AccountType.loan).firstOrNull;
+            return SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Mis Créditos',
+                    style: GoogleFonts.roboto(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: AgroTheme.primaryGreen,
+                    ),
                   ),
-                ),
-                Text(
-                  'Gestiona tus préstamos y mantente al día con tus pagos.',
-                  style: TextStyle(color: AgroTheme.textMuted, fontSize: 14),
-                ),
-                const SizedBox(height: 24),
-                _buildTotalDebtCard(loan?.balance ?? 35200.0),
-                const SizedBox(height: 16),
-                _buildNextPaymentCard(),
-                const SizedBox(height: 32),
-                const Text(
-                  'PRÉSTAMOS ACTIVOS',
-                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, letterSpacing: 1.2, color: AgroTheme.textMuted),
-                ),
-                const SizedBox(height: 16),
-                _buildLoanItem(
-                  title: 'Crédito Agrícola',
-                  subtitle: 'Vence: 15/12/2026 • 12 cuotas restantes',
-                  icon: Icons.agriculture_rounded,
-                  iconColor: const Color(0xFFC8E6C9),
-                ),
-                const SizedBox(height: 12),
-                _buildLoanItem(
-                  title: 'Crédito Maquinaria',
-                  subtitle: 'Contrato: #8829-AGRO',
-                  icon: Icons.handyman_rounded,
-                  iconColor: const Color(0xFFFFE0B2),
-                  isExpanded: true,
-                ),
-                const SizedBox(height: 32),
-                _buildPromoBanner(),
-                const SizedBox(height: 80),
-              ],
-            ),
-          );
-        },
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (e, _) => Center(child: Text('Error: $e')),
+                  const Text(
+                    'Gestiona tus préstamos y mantente al día con tus pagos.',
+                    style: TextStyle(color: AgroTheme.textMuted, fontSize: 14, fontWeight: FontWeight.w500),
+                  ),
+                  const SizedBox(height: 24),
+                  _buildTotalDebtCard(loan?.balance ?? 35200.0),
+                  const SizedBox(height: 16),
+                  _buildNextPaymentCard(),
+                  const SizedBox(height: 32),
+                  const Text(
+                    'PRÉSTAMOS ACTIVOS',
+                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, letterSpacing: 1.2, color: AgroTheme.textMuted),
+                  ),
+                  const SizedBox(height: 16),
+                  _buildLoanItem(
+                    title: 'Crédito Agrícola',
+                    subtitle: 'Vence: 15/12/2026 • 12 cuotas restantes',
+                    icon: Icons.agriculture_rounded,
+                    iconColor: const Color(0xFFC8E6C9),
+                  ),
+                  const SizedBox(height: 12),
+                  _buildLoanItem(
+                    title: 'Crédito Maquinaria',
+                    subtitle: 'Contrato: #8829-AGRO',
+                    icon: Icons.handyman_rounded,
+                    iconColor: const Color(0xFFFFE0B2),
+                    isExpanded: true,
+                  ),
+                  const SizedBox(height: 32),
+                  _buildPromoBanner(),
+                  const SizedBox(height: 80),
+                ],
+              ),
+            );
+          },
+          loading: () => const Center(child: CircularProgressIndicator(color: AgroTheme.primaryGreen)),
+          error: (e, _) => Center(child: Text('Error: $e')),
+        ),
       ),
     );
   }
@@ -107,8 +111,16 @@ class LoansScreen extends ConsumerWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: AgroTheme.primaryGreen,
-        borderRadius: BorderRadius.circular(12),
+        gradient: AgroTheme.balanceGradient,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.white.withOpacity(0.2), width: 1.5),
+        boxShadow: [
+          BoxShadow(
+            color: AgroTheme.primaryGreen.withOpacity(0.2),
+            blurRadius: 15,
+            offset: const Offset(0, 6),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -116,7 +128,7 @@ class LoansScreen extends ConsumerWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: const [
-              Text('Total de deuda', style: TextStyle(color: Colors.white70, fontSize: 14)),
+              Text('Total de deuda', style: TextStyle(color: Colors.white70, fontSize: 14, fontWeight: FontWeight.w500)),
               Icon(Icons.account_balance_outlined, color: Colors.white70, size: 20),
             ],
           ),
@@ -135,28 +147,18 @@ class LoansScreen extends ConsumerWidget {
   }
 
   Widget _buildNextPaymentCard() {
-    return Container(
-      width: double.infinity,
+    return GlassCard(
+      borderRadius: 16,
+      backgroundOpacity: 0.5,
       padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        border: const Border(left: BorderSide(color: AgroTheme.secondaryYellow, width: 4)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.02),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
       child: Row(
         children: [
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Próxima cuota', style: TextStyle(color: AgroTheme.textMuted, fontSize: 14)),
+                const Text('Próxima cuota', style: TextStyle(color: AgroTheme.textMuted, fontSize: 14, fontWeight: FontWeight.w600)),
+                const SizedBox(height: 4),
                 const Text('30/05/2026', style: TextStyle(color: Color(0xFF8B5E3C), fontSize: 14, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 8),
                 Text(
@@ -166,7 +168,14 @@ class LoansScreen extends ConsumerWidget {
               ],
             ),
           ),
-          const Icon(Icons.calendar_month_outlined, color: Color(0xFF8B5E3C), size: 28),
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: AgroTheme.secondaryYellow.withOpacity(0.2),
+              shape: BoxShape.circle,
+            ),
+            child: const Icon(Icons.calendar_month_outlined, color: Color(0xFF8B5E3C), size: 26),
+          ),
         ],
       ),
     );
@@ -179,26 +188,27 @@ class LoansScreen extends ConsumerWidget {
     required Color iconColor,
     bool isExpanded = false,
   }) {
-    return Container(
-      decoration: BoxDecoration(
-        color: isExpanded ? Colors.white : const Color(0xFFF9FAF2),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.black.withOpacity(0.05)),
-      ),
+    return GlassCard(
+      borderRadius: 16,
+      backgroundOpacity: isExpanded ? 0.65 : 0.45,
+      padding: EdgeInsets.zero,
       child: Column(
         children: [
-          ListTile(
-            leading: Container(
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(color: iconColor, shape: BoxShape.circle),
-              child: Icon(icon, color: AgroTheme.textDark, size: 20),
+          Material(
+            color: Colors.transparent,
+            child: ListTile(
+              leading: Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(color: iconColor.withOpacity(0.8), shape: BoxShape.circle),
+                child: Icon(icon, color: AgroTheme.textDark, size: 20),
+              ),
+              title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold, color: AgroTheme.textDark)),
+              subtitle: Text(subtitle, style: const TextStyle(fontSize: 12, color: AgroTheme.textMuted, fontWeight: FontWeight.w500)),
+              trailing: Icon(isExpanded ? Icons.expand_less : Icons.expand_more, color: AgroTheme.textMuted),
             ),
-            title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold, color: AgroTheme.textDark)),
-            subtitle: Text(subtitle, style: const TextStyle(fontSize: 12, color: AgroTheme.textMuted)),
-            trailing: Icon(isExpanded ? Icons.expand_less : Icons.expand_more, color: Colors.grey),
           ),
           if (isExpanded) ...[
-            const Divider(height: 1),
+            const Divider(height: 1, color: Colors.white30),
             _buildScheduleTable(),
           ],
         ],
@@ -227,10 +237,10 @@ class LoansScreen extends ConsumerWidget {
           ),
           const SizedBox(height: 16),
           _buildTableHeader(),
-          _buildTableRow('04', '30/03/2026', '980.00', '270.00', 'PAGADO', const Color(0xFFE8F5E9), Colors.green),
-          _buildTableRow('05', '30/04/2026', '980.00', '270.00', 'PAGADO', const Color(0xFFE8F5E9), Colors.green),
-          _buildTableRow('06', '30/05/2026', '980.00', '270.00', 'PENDIENTE', const Color(0xFFFFF3E0), Colors.orange, isHighlighted: true),
-          _buildTableRow('07', '30/06/2026', '980.00', '270.00', 'PRÓXIMO', const Color(0xFFF5F5F5), Colors.grey),
+          _buildTableRow('04', '30/03/2026', '980.00', '270.00', 'PAGADO', const Color(0xFFC8E6C9).withOpacity(0.8), Colors.green.shade800),
+          _buildTableRow('05', '30/04/2026', '980.00', '270.00', 'PAGADO', const Color(0xFFC8E6C9).withOpacity(0.8), Colors.green.shade800),
+          _buildTableRow('06', '30/05/2026', '980.00', '270.00', 'PENDIENTE', const Color(0xFFFFE0B2).withOpacity(0.8), Colors.orange.shade800, isHighlighted: true),
+          _buildTableRow('07', '30/06/2026', '980.00', '270.00', 'PRÓXIMO', Colors.white.withOpacity(0.3), AgroTheme.textMuted),
         ],
       ),
     );
@@ -255,7 +265,7 @@ class LoansScreen extends ConsumerWidget {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
       decoration: BoxDecoration(
-        color: isHighlighted ? const Color(0xFFFFF9E6) : Colors.transparent,
+        color: isHighlighted ? Colors.white.withOpacity(0.3) : Colors.transparent,
         borderRadius: BorderRadius.circular(8),
       ),
       child: Row(
@@ -280,21 +290,28 @@ class LoansScreen extends ConsumerWidget {
       width: double.infinity,
       height: 180,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(20),
         gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [Color(0xFF4CAF50), Color(0xFF1B5E20)],
+          colors: [Color(0xFF2E7D32), Color(0xFF1B5E20)],
         ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.green.withOpacity(0.2),
+            blurRadius: 15,
+            offset: const Offset(0, 8),
+          ),
+        ],
       ),
       child: Container(
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(20),
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [Colors.black.withOpacity(0.1), Colors.black.withOpacity(0.7)],
+            colors: [Colors.black.withOpacity(0.1), Colors.black.withOpacity(0.65)],
           ),
         ),
         child: Column(
@@ -303,23 +320,19 @@ class LoansScreen extends ConsumerWidget {
           children: [
             const Text(
               '¿Necesitas renovar maquinaria?',
-              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
+              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 17),
             ),
             const SizedBox(height: 4),
             const Text(
               'Descubre nuestras tasas preferenciales para la campaña 2026.',
-              style: TextStyle(color: Colors.white70, fontSize: 12),
+              style: TextStyle(color: Colors.white70, fontSize: 13),
             ),
-            const SizedBox(height: 12),
-            ElevatedButton(
+            const SizedBox(height: 14),
+            GlassButton(
+              text: 'Más información',
+              isSecondary: true,
+              height: 38,
               onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AgroTheme.secondaryYellow,
-                foregroundColor: AgroTheme.textDark,
-                minimumSize: const Size(120, 36),
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-              ),
-              child: const Text('Más información', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
             ),
           ],
         ),

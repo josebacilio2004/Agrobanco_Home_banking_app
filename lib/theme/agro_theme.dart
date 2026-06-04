@@ -101,8 +101,18 @@ class AgroTheme {
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
         colors: [
-          Color(0xFF2E5A27),
-          Color(0xFF3E7535),
+          Color(0xFF1A4314), // Deep organic forest green
+          Color(0xFF2D6A4F), // Vibrant emerald
+          Color(0xFF1E4620), // Rich dark green
+        ],
+      );
+
+  static LinearGradient get premiumGoldGradient => const LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [
+          Color(0xFFF5A623),
+          Color(0xFFFFD54F),
         ],
       );
 }

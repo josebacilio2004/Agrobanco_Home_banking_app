@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../theme/agro_theme.dart';
+import '../theme/glass_widgets.dart';
 import '../services/banking_services.dart';
 import '../models/banking_models.dart';
 
@@ -16,96 +17,98 @@ class DashboardScreen extends ConsumerWidget {
     final transactions = ref.watch(transactionsProvider);
 
     return Scaffold(
-      backgroundColor: AgroTheme.backgroundCream,
-      body: Column(
-        children: [
-          _buildSyncBar(),
-          Expanded(
-            child: SafeArea(
-              top: false,
-              child: userProfile.when(
-                data: (user) => SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 16),
-                      _buildHeader(context, user?.photoURL),
-                      const SizedBox(height: 24),
-                      Text(
-                        '¡Buenos días, ${user?.displayName ?? 'Cliente'}!',
-                        style: GoogleFonts.roboto(
-                          fontSize: 28,
-                          fontWeight: FontWeight.bold,
-                          color: AgroTheme.textDark,
+      backgroundColor: Colors.transparent,
+      body: GlassBackground(
+        child: Column(
+          children: [
+            _buildSyncBar(),
+            Expanded(
+              child: SafeArea(
+                top: false,
+                child: userProfile.when(
+                  data: (user) => SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(),
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 16),
+                        _buildHeader(context, user?.photoURL),
+                        const SizedBox(height: 24),
+                        Text(
+                          '¡Buenos días, ${user?.displayName ?? 'Cliente'}!',
+                          style: GoogleFonts.roboto(
+                            fontSize: 28,
+                            fontWeight: FontWeight.bold,
+                            color: AgroTheme.textDark,
+                          ),
                         ),
-                      ),
-                      Text(
-                        _getFormattedDate(),
-                        style: TextStyle(color: AgroTheme.textMuted, fontSize: 16),
-                      ),
-                      const SizedBox(height: 24),
-                      accounts.when(
-                        data: (accs) => _buildPremiumBalanceCard(context, accs),
-                        loading: () => const _LoadingSkeleton(height: 180),
-                        error: (e, _) => _ErrorCard(error: e.toString()),
-                      ),
-                      const SizedBox(height: 24),
-                      _buildQuickActions(context),
-                      const SizedBox(height: 32),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Últimos movimientos',
-                            style: GoogleFonts.roboto(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: AgroTheme.textDark,
+                        Text(
+                          _getFormattedDate(),
+                          style: const TextStyle(color: AgroTheme.textMuted, fontSize: 15, fontWeight: FontWeight.w500),
+                        ),
+                        const SizedBox(height: 24),
+                        accounts.when(
+                          data: (accs) => _buildPremiumBalanceCard(context, accs),
+                          loading: () => const _LoadingSkeleton(height: 180),
+                          error: (e, _) => _ErrorCard(error: e.toString()),
+                        ),
+                        const SizedBox(height: 24),
+                        _buildQuickActions(context),
+                        const SizedBox(height: 32),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Últimos movimientos',
+                              style: GoogleFonts.roboto(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: AgroTheme.textDark,
+                              ),
                             ),
-                          ),
-                          TextButton(
-                            onPressed: () {},
-                            child: const Text('Ver todo', style: TextStyle(color: AgroTheme.primaryGreen, fontWeight: FontWeight.bold)),
-                          ),
-                        ],
-                      ),
-                      transactions.when(
-                        data: (txs) => _buildMovementsList(context, txs),
-                        loading: () => const _LoadingSkeleton(height: 100),
-                        error: (e, _) => _ErrorCard(error: e.toString()),
-                      ),
-                      const SizedBox(height: 40),
-                    ],
+                            TextButton(
+                              onPressed: () {},
+                              child: const Text('Ver todo', style: TextStyle(color: AgroTheme.primaryGreen, fontWeight: FontWeight.bold)),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 8),
+                        transactions.when(
+                          data: (txs) => _buildMovementsList(context, txs),
+                          loading: () => const _LoadingSkeleton(height: 100),
+                          error: (e, _) => _ErrorCard(error: e.toString()),
+                        ),
+                        const SizedBox(height: 40),
+                      ],
+                    ),
                   ),
+                  loading: () => const Center(child: CircularProgressIndicator(color: AgroTheme.primaryGreen)),
+                  error: (e, _) => Center(child: Text('Error: $e')),
                 ),
-                loading: () => const Center(child: CircularProgressIndicator()),
-                error: (e, _) => Center(child: Text('Error: $e')),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
-
   }
 
   Widget _buildSyncBar() {
     return Container(
       width: double.infinity,
-      color: const Color(0xFFF1F1F1),
+      color: Colors.black.withOpacity(0.03),
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: SafeArea(
         bottom: false,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(Icons.cloud_off_rounded, size: 16, color: AgroTheme.textMuted),
+            const Icon(Icons.cloud_off_rounded, size: 14, color: AgroTheme.textMuted),
             const SizedBox(width: 8),
             Text(
               'Sin conexión - Datos actualizados hace 5 min.',
-              style: TextStyle(color: AgroTheme.textMuted, fontSize: 12),
+              style: TextStyle(color: AgroTheme.textMuted.withOpacity(0.9), fontSize: 12, fontWeight: FontWeight.w600),
             ),
           ],
         ),
@@ -148,7 +151,6 @@ class DashboardScreen extends ConsumerWidget {
     );
   }
 
-
   Widget _buildPremiumBalanceCard(BuildContext context, List<Account> accounts) {
     final savings = accounts.where((a) => a.type == AccountType.savings).fold(0.0, (sum, item) => sum + item.balance);
     final total = savings;
@@ -158,11 +160,15 @@ class DashboardScreen extends ConsumerWidget {
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
         gradient: AgroTheme.balanceGradient,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: Colors.white.withOpacity(0.2),
+          width: 1.5,
+        ),
         boxShadow: [
           BoxShadow(
-            color: AgroTheme.primaryGreen.withOpacity(0.2),
-            blurRadius: 15,
+            color: AgroTheme.primaryGreen.withOpacity(0.3),
+            blurRadius: 20,
             offset: const Offset(0, 8),
           ),
         ],
@@ -175,9 +181,9 @@ class DashboardScreen extends ConsumerWidget {
             children: [
               Text(
                 'Saldo total disponible',
-                style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 14),
+                style: TextStyle(color: Colors.white.withOpacity(0.85), fontSize: 14, fontWeight: FontWeight.w500),
               ),
-              Icon(Icons.visibility_outlined, color: Colors.white.withOpacity(0.8), size: 20),
+              Icon(Icons.visibility_outlined, color: Colors.white.withOpacity(0.85), size: 22),
             ],
           ),
           const SizedBox(height: 8),
@@ -185,22 +191,26 @@ class DashboardScreen extends ConsumerWidget {
             'S/ ${total.toStringAsFixed(2)}',
             style: GoogleFonts.roboto(
               color: Colors.white,
-              fontSize: 32,
+              fontSize: 34,
               fontWeight: FontWeight.bold,
+              shadows: [
+                Shadow(
+                  color: Colors.black.withOpacity(0.15),
+                  offset: const Offset(0, 2),
+                  blurRadius: 4,
+                ),
+              ],
             ),
           ),
           const SizedBox(height: 24),
           Row(
             children: [
               Expanded(
-                child: ElevatedButton(
+                child: GlassButton(
+                  text: 'Cargar saldo',
+                  isSecondary: true,
+                  height: 48,
                   onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AgroTheme.secondaryYellow,
-                    foregroundColor: AgroTheme.textDark,
-                    elevation: 0,
-                  ),
-                  child: const Text('Cargar saldo'),
                 ),
               ),
               const SizedBox(width: 12),
@@ -209,35 +219,17 @@ class DashboardScreen extends ConsumerWidget {
                   onPressed: () {},
                   style: OutlinedButton.styleFrom(
                     foregroundColor: Colors.white,
-                    side: const BorderSide(color: Colors.white24),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                    minimumSize: const Size.fromHeight(52),
+                    side: BorderSide(color: Colors.white.withOpacity(0.3), width: 1.5),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                    minimumSize: const Size.fromHeight(48),
                   ),
-                  child: const Text('Detalle', style: TextStyle(fontWeight: FontWeight.bold)),
+                  child: const Text('Detalle', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
                 ),
               ),
             ],
           ),
         ],
       ),
-    );
-  }
-
-
-  Widget _buildBalanceSubItem(String label, String value, Color valueColor) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(label, style: const TextStyle(color: Colors.white60, fontSize: 12)),
-        Text(
-          value,
-          style: TextStyle(
-            color: valueColor,
-            fontWeight: FontWeight.bold,
-            fontSize: 17,
-          ),
-        ),
-      ],
     );
   }
 
@@ -260,14 +252,12 @@ class DashboardScreen extends ConsumerWidget {
             const SizedBox(width: 12),
             Expanded(child: _QuickActionItem(icon: Icons.help_outline_rounded, label: 'Soporte', color: AgroTheme.iconBgPurple)),
             const SizedBox(width: 12),
-            const Expanded(child: SizedBox()), // Espacio vacío para mantener la cuadrícula
+            const Expanded(child: SizedBox()), // Empty spacer to keep layout
           ],
         ),
       ],
     );
   }
-
-
 
   String _getFormattedDate() {
     final now = DateTime.now();
@@ -275,7 +265,6 @@ class DashboardScreen extends ConsumerWidget {
     final days = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
     return '${days[now.weekday - 1]}, ${now.day} de ${months[now.month - 1]} ${now.year}';
   }
-
 
   Widget _buildMovementsList(BuildContext context, List<TransactionModel> transactions) {
     if (transactions.isEmpty) {
@@ -297,44 +286,40 @@ class _QuickActionItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: width,
-      height: 90, // Un poco más alto para acomodar el texto debajo
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: const Color(0xFFF9FAF2),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.black.withOpacity(0.05)),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: color,
-              shape: BoxShape.circle,
+    return GlassCard(
+      borderRadius: 16,
+      backgroundOpacity: 0.5,
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+      child: SizedBox(
+        width: width,
+        height: 72,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: color.withOpacity(0.85),
+                shape: BoxShape.circle,
+              ),
+              child: Icon(icon, color: AgroTheme.primaryGreen, size: 22),
             ),
-            child: Icon(icon, color: AgroTheme.primaryGreen, size: 24),
-          ),
-          const SizedBox(height: 8),
-          Flexible(
-            child: Text(
-              label,
-              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AgroTheme.textDark),
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
+            const SizedBox(height: 8),
+            Flexible(
+              child: Text(
+                label,
+                style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AgroTheme.textDark),
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 }
-
-
-
 
 class _MovementCard extends StatelessWidget {
   final TransactionModel tx;
@@ -344,50 +329,56 @@ class _MovementCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bool isCredit = tx.isCredit;
-    final Color accentColor = isCredit ? Colors.green.shade600 : AgroTheme.primaryGreen;
 
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: const Color(0xFFF1F1F1),
-              borderRadius: BorderRadius.circular(12),
+      child: GlassCard(
+        borderRadius: 16,
+        backgroundOpacity: 0.45,
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        color: Colors.white,
+        customShadow: const [],
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: isCredit ? const Color(0xFFE8F5E9).withOpacity(0.7) : const Color(0xFFFFEBEE).withOpacity(0.7),
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                isCredit ? Icons.account_balance_wallet_outlined : Icons.payment_outlined,
+                color: isCredit ? AgroTheme.primaryGreen : AgroTheme.errorRed,
+                size: 22,
+              ),
             ),
-            child: Icon(
-              isCredit ? Icons.account_balance_wallet_outlined : Icons.payment_outlined,
-              color: AgroTheme.textDark,
-              size: 24,
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    tx.title,
+                    style: GoogleFonts.roboto(fontWeight: FontWeight.bold, fontSize: 15, color: AgroTheme.textDark),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    '${tx.date.day} ${_getMonth(tx.date.month)} - ${_formatTime(tx.date)}',
+                    style: const TextStyle(color: AgroTheme.textMuted, fontSize: 12, fontWeight: FontWeight.w500),
+                  ),
+                ],
+              ),
             ),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  tx.title,
-                  style: GoogleFonts.roboto(fontWeight: FontWeight.bold, fontSize: 16, color: AgroTheme.textDark),
-                ),
-                Text(
-                  '${tx.date.day} ${_getMonth(tx.date.month)} - ${_formatTime(tx.date)}',
-                  style: const TextStyle(color: AgroTheme.textMuted, fontSize: 13),
-                ),
-              ],
+            Text(
+              '${isCredit ? "+" : "-"} S/ ${tx.amount.toStringAsFixed(2)}',
+              style: GoogleFonts.roboto(
+                color: isCredit ? const Color(0xFF2E7D32) : const Color(0xFFC62828),
+                fontWeight: FontWeight.bold,
+                fontSize: 15,
+              ),
             ),
-          ),
-          Text(
-            '${isCredit ? "+" : "-"} S/ ${tx.amount.toStringAsFixed(2)}',
-            style: GoogleFonts.roboto(
-              color: isCredit ? const Color(0xFF2E7D32) : const Color(0xFFC62828),
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -398,36 +389,9 @@ class _MovementCard extends StatelessWidget {
     return '${hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')} $ampm';
   }
 
-
   String _getMonth(int month) {
     const months = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
     return months[month - 1];
-  }
-}
-
-class _GlassIcon extends StatelessWidget {
-  final IconData icon;
-  final VoidCallback onTap;
-
-  const _GlassIcon({required this.icon, required this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(16),
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-        child: Container(
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.6),
-            borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: Colors.white.withOpacity(0.3)),
-          ),
-          child: Icon(icon, color: AgroTheme.primaryGreen),
-        ),
-      ),
-    );
   }
 }
 
@@ -444,7 +408,7 @@ class _LoadingSkeleton extends StatelessWidget {
         color: Colors.black.withOpacity(0.05),
         borderRadius: BorderRadius.circular(24),
       ),
-      child: const Center(child: CircularProgressIndicator()),
+      child: const Center(child: CircularProgressIndicator(color: AgroTheme.primaryGreen)),
     );
   }
 }
@@ -482,3 +446,4 @@ class _ErrorCard extends StatelessWidget {
     );
   }
 }
+
