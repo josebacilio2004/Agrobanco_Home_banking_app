@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;family=Open+Sans:wght@400;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error-container": "#ffdad6",
+                        "on-secondary": "#ffffff",
+                        "tertiary": "#553112",
+                        "background": "#f9faf2",
+                        "on-surface": "#1a1c18",
+                        "on-background": "#1a1c18",
+                        "on-error-container": "#93000a",
+                        "surface-dim": "#d9dbd3",
+                        "surface-container-low": "#f3f4ed",
+                        "on-tertiary-fixed-variant": "#653d1e",
+                        "on-surface-variant": "#42493e",
+                        "primary": "#164212",
+                        "primary-fixed-dim": "#a1d493",
+                        "surface-container": "#edefe7",
+                        "surface-variant": "#e2e3dc",
+                        "surface-container-high": "#e7e9e1",
+                        "tertiary-container": "#704727",
+                        "secondary-container": "#feae2c",
+                        "on-primary-fixed-variant": "#24501e",
+                        "on-primary-fixed": "#002201",
+                        "surface-container-highest": "#e2e3dc",
+                        "primary-container": "#2e5a27",
+                        "surface": "#f9faf2",
+                        "secondary-fixed-dim": "#ffb955",
+                        "on-secondary-fixed-variant": "#633f00",
+                        "error": "#ba1a1a",
+                        "secondary-fixed": "#ffddb4",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-container": "#6b4500",
+                        "on-primary": "#ffffff",
+                        "primary-fixed": "#bdf0ad",
+                        "on-secondary-fixed": "#291800",
+                        "secondary": "#835500",
+                        "on-tertiary": "#ffffff",
+                        "outline": "#72796d",
+                        "surface-bright": "#f9faf2",
+                        "tertiary-fixed": "#ffdcc5",
+                        "inverse-surface": "#2e312c",
+                        "on-tertiary-fixed": "#301400",
+                        "on-error": "#ffffff",
+                        "inverse-primary": "#a1d493",
+                        "surface-tint": "#3c6934",
+                        "tertiary-fixed-dim": "#f4bb92",
+                        "inverse-on-surface": "#f0f1ea",
+                        "on-primary-container": "#9ed090",
+                        "on-tertiary-container": "#f0b78f",
+                        "outline-variant": "#c2c9bb"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "24px",
+                        "xs": "4px",
+                        "md": "16px",
+                        "base": "8px",
+                        "touch-target-min": "48px",
+                        "sm": "8px",
+                        "xl": "32px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Open Sans"],
+                        "body-sm": ["Open Sans"],
+                        "headline-md": ["Roboto"],
+                        "headline-sm": ["Roboto"],
+                        "button-text": ["Roboto"],
+                        "body-lg": ["Open Sans"],
+                        "label-lg": ["Open Sans"],
+                        "display-lg": ["Roboto"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "700"}],
+                        "button-text": ["16px", {"lineHeight": "24px", "letterSpacing": "1.25px", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.5px", "fontWeight": "700"}],
+                        "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "0.25px", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { background-color: #f9faf2; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-on-surface bg-background min-h-screen pb-24">
+<!-- TopAppBar -->
+<header class="bg-surface shadow-sm docked full-width top-0 z-50 sticky h-touch-target-min px-md flex justify-between items-center">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center overflow-hidden">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="A portrait of a senior Peruvian farmer with a warm, weathered face, wearing a traditional straw hat. The background is a soft-focus agricultural field under bright morning sunlight. The image has a clean, high-contrast look that aligns with a professional corporate banking application for rural development." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbOn4nTr812KSNXh-BxUJD627VYPPigBTIdNfDd4_4AxmwEfeCoSX6DfIWEGOSYca7vTnzsRf7HttdwXVK5TXZ8FOlvBM_TKZzZHBYUMHvnOB0dY63Asd3PmlvLPd9yjlPA6_75AMaUXeeQ0YjmvTFwC13eUlik7LVpNKIIdgfhb-Rw0p-I8-airb13u1_Y_6Iw3M9-Pv-yFqccKUk2eHJQTdCKy6onQeSynMkeXliWdndjZOpiRmegKHx9SSO-GjM2A2BjIWHPjSJ"/>
+</div>
+<h1 class="font-headline-sm text-headline-sm font-bold text-primary">Agrobanco</h1>
+</div>
+<button class="w-touch-target-min h-touch-target-min flex items-center justify-center hover:bg-surface-container-high transition-colors rounded-full text-primary">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</header>
+<main class="max-w-4xl mx-auto p-md space-y-md">
+<!-- Welcome Section -->
+<section class="mb-md">
+<h2 class="font-headline-md text-headline-md text-primary">Mis Créditos</h2>
+<p class="font-body-md text-on-surface-variant">Gestiona tus préstamos y mantente al día con tus pagos.</p>
+</section>
+<!-- Summary Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<!-- Total Debt Card -->
+<div class="bg-primary-container text-on-primary-container p-lg rounded-xl shadow-md border-l-4 border-secondary flex flex-col justify-between min-h-[140px]">
+<div class="flex justify-between items-start">
+<span class="font-label-lg opacity-90">Total de deuda</span>
+<span class="material-symbols-outlined" data-icon="account_balance">account_balance</span>
+</div>
+<div class="font-display-lg text-display-lg mt-base">S/ 35,200.00</div>
+</div>
+<!-- Next Payment Card -->
+<div class="bg-surface-container-lowest p-lg rounded-xl shadow-md border-l-4 border-secondary-container flex flex-col justify-between min-h-[140px]">
+<div class="flex justify-between items-start">
+<div class="flex flex-col">
+<span class="font-label-lg text-on-surface-variant">Próxima cuota</span>
+<span class="font-body-sm text-tertiary">30/05/2026</span>
+</div>
+<span class="material-symbols-outlined text-secondary" data-icon="calendar_today">calendar_today</span>
+</div>
+<div class="font-headline-md text-headline-md text-primary mt-base">S/ 1,250.00</div>
+</div>
+</div>
+<!-- Loans Accordion List -->
+<section class="space-y-sm">
+<h3 class="font-label-lg text-on-surface-variant uppercase tracking-wider px-xs">Préstamos Activos</h3>
+<!-- Item 1: Crédito Agrícola -->
+<div class="bg-surface border border-outline-variant/30 rounded-xl overflow-hidden shadow-sm">
+<button class="w-full flex items-center justify-between p-md hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="agriculture">agriculture</span>
+</div>
+<div class="text-left">
+<p class="font-headline-sm text-headline-sm text-primary">Crédito Agrícola</p>
+<p class="font-body-sm text-on-surface-variant">Vence: 15/12/2026 • 12 cuotas restantes</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline" data-icon="expand_more">expand_more</span>
+</button>
+</div>
+<!-- Item 2: Crédito Maquinaria (Expanded for demo context) -->
+<div class="bg-surface border border-outline-variant/50 rounded-xl overflow-hidden shadow-md">
+<div class="w-full flex items-center justify-between p-md bg-surface-container-high">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed">
+<span class="material-symbols-outlined" data-icon="construction">construction</span>
+</div>
+<div class="text-left">
+<p class="font-headline-sm text-headline-sm text-primary">Crédito Maquinaria</p>
+<p class="font-body-sm text-on-surface-variant">Contrato: #8829-AGRO</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-primary" data-icon="expand_less">expand_less</span>
+</div>
+<!-- Table / Schedule Content -->
+<div class="p-md space-y-md">
+<div class="flex justify-between items-center">
+<h4 class="font-label-lg text-primary">Cronograma de Pagos</h4>
+<button class="text-primary font-button-text text-button-text flex items-center gap-xs hover:underline">
+<span class="material-symbols-outlined text-sm" data-icon="download">download</span>
+                            PDF
+                        </button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant">
+<th class="py-sm font-label-lg text-on-surface-variant"># Cuota</th>
+<th class="py-sm font-label-lg text-on-surface-variant">Fecha</th>
+<th class="py-sm font-label-lg text-on-surface-variant">Capital</th>
+<th class="py-sm font-label-lg text-on-surface-variant">Interés</th>
+<th class="py-sm font-label-lg text-on-surface-variant text-right">Estado</th>
+</tr>
+</thead>
+<tbody class="font-body-sm">
+<tr class="border-b border-outline-variant/10 opacity-60">
+<td class="py-md">04</td>
+<td class="py-md">30/03/2026</td>
+<td class="py-md">S/ 980.00</td>
+<td class="py-md">S/ 270.00</td>
+<td class="py-md text-right">
+<span class="bg-primary-fixed text-on-primary-fixed px-base py-xs rounded-full font-label-lg text-[10px]">PAGADO</span>
+</td>
+</tr>
+<tr class="border-b border-outline-variant/10 opacity-60">
+<td class="py-md">05</td>
+<td class="py-md">30/04/2026</td>
+<td class="py-md">S/ 980.00</td>
+<td class="py-md">S/ 270.00</td>
+<td class="py-md text-right">
+<span class="bg-primary-fixed text-on-primary-fixed px-base py-xs rounded-full font-label-lg text-[10px]">PAGADO</span>
+</td>
+</tr>
+<!-- ACTIVE QUOTA (Cosecha Yellow Highlight) -->
+<tr class="bg-secondary-container/20 border-l-4 border-secondary-container">
+<td class="py-md pl-md font-bold">06</td>
+<td class="py-md font-bold">30/05/2026</td>
+<td class="py-md">S/ 980.00</td>
+<td class="py-md">S/ 270.00</td>
+<td class="py-md text-right pr-md">
+<span class="bg-secondary-container text-on-secondary-container px-base py-xs rounded-full font-label-lg text-[10px]">PENDIENTE</span>
+</td>
+</tr>
+<tr class="border-b border-outline-variant/10">
+<td class="py-md">07</td>
+<td class="py-md">30/06/2026</td>
+<td class="py-md">S/ 980.00</td>
+<td class="py-md">S/ 270.00</td>
+<td class="py-md text-right">
+<span class="bg-surface-variant text-on-surface-variant px-base py-xs rounded-full font-label-lg text-[10px]">PRÓXIMO</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<!-- Promotional/Info Card -->
+<div class="relative rounded-xl overflow-hidden h-40 shadow-md">
+<img alt="Campo de Cultivo" class="w-full h-full object-cover" data-alt="A panoramic view of a lush green agricultural valley in the Andes at sunset. The lighting is golden and warm, highlighting the textures of the soil and the diverse crops. The atmosphere is peaceful and prosperous, reinforcing the idea of growth and agricultural investment supported by Agrobanco." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsLH7kfEhV-w3TX1RaI4YVExAar5tOCDdQd0mxFfxeg_AqOu4Tyg1lN8P6o-6EGuyEQ7KrTSpwi96963ieydA_LJvSLqDPhr1AQ1JR-MfA3nxFtJxcAHBvCkx_gBBGxRiAV7w0vTG5u9DyIWOJBcbMsxGYtxG9NQNRMf9KOE9Mdp30A20zXO7rmcYqXzsnk09ddjwoZM0vq0xQToIlizMmLvKklV-TBP6egJVIxcj5-laC_btqungZd8wFzkdU42RTa1uNLaxG3NOj"/>
+<div class="absolute inset-0 bg-gradient-to-r from-primary/80 to-transparent flex flex-col justify-center p-md">
+<h4 class="font-headline-sm text-white">¿Necesitas renovar maquinaria?</h4>
+<p class="font-body-sm text-white/90 max-w-[60%]">Descubre nuestras tasas preferenciales para la campaña 2026.</p>
+<button class="mt-base self-start bg-secondary-container text-on-secondary-container px-md py-xs rounded-full font-button-text text-sm hover:scale-105 transition-transform">Más información</button>
+</div>
+</div>
+</main>
+<!-- Floating Action Button -->
+<button class="fixed bottom-24 right-md bg-secondary-container text-on-secondary-container shadow-lg w-auto h-touch-target-min px-lg rounded-full flex items-center gap-md z-40 hover:scale-105 active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="font-button-text">Pagar cuota</span>
+</button>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-base py-sm bg-surface rounded-t-xl shadow-md border-t border-outline-variant/20 h-[80px]">
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-md py-xs hover:bg-surface-container transition-colors rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-lg">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-md py-xs hover:bg-surface-container transition-colors rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="account_balance_wallet">account_balance_wallet</span>
+<span class="font-label-lg">Savings</span>
+</a>
+<!-- ACTIVE TAB: Credits -->
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-md py-xs scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="payments" style="font-variation-settings: 'FILL' 1;">payments</span>
+<span class="font-label-lg">Credits</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-md py-xs hover:bg-surface-container transition-colors rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="sync_alt">sync_alt</span>
+<span class="font-label-lg">Transfers</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-md py-xs hover:bg-surface-container transition-colors rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-lg">Profile</span>
+</a>
+</nav>
+</body></html>

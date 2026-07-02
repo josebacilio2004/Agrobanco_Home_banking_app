@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;family=Open+Sans:wght@400;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        ::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error-container": "#ffdad6",
+                        "on-secondary": "#ffffff",
+                        "tertiary": "#553112",
+                        "background": "#f9faf2",
+                        "on-surface": "#1a1c18",
+                        "on-background": "#1a1c18",
+                        "on-error-container": "#93000a",
+                        "surface-dim": "#d9dbd3",
+                        "surface-container-low": "#f3f4ed",
+                        "on-tertiary-fixed-variant": "#653d1e",
+                        "on-surface-variant": "#42493e",
+                        "primary": "#164212",
+                        "primary-fixed-dim": "#a1d493",
+                        "surface-container": "#edefe7",
+                        "surface-variant": "#e2e3dc",
+                        "surface-container-high": "#e7e9e1",
+                        "tertiary-container": "#704727",
+                        "secondary-container": "#feae2c",
+                        "on-primary-fixed-variant": "#24501e",
+                        "on-primary-fixed": "#002201",
+                        "surface-container-highest": "#e2e3dc",
+                        "primary-container": "#2e5a27",
+                        "surface": "#f9faf2",
+                        "secondary-fixed-dim": "#ffb955",
+                        "on-secondary-fixed-variant": "#633f00",
+                        "error": "#ba1a1a",
+                        "secondary-fixed": "#ffddb4",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-container": "#6b4500",
+                        "on-primary": "#ffffff",
+                        "primary-fixed": "#bdf0ad",
+                        "on-secondary-fixed": "#291800",
+                        "secondary": "#835500",
+                        "on-tertiary": "#ffffff",
+                        "outline": "#72796d",
+                        "surface-bright": "#f9faf2",
+                        "tertiary-fixed": "#ffdcc5",
+                        "inverse-surface": "#2e312c",
+                        "on-tertiary-fixed": "#301400",
+                        "on-error": "#ffffff",
+                        "inverse-primary": "#a1d493",
+                        "surface-tint": "#3c6934",
+                        "tertiary-fixed-dim": "#f4bb92",
+                        "inverse-on-surface": "#f0f1ea",
+                        "on-primary-container": "#9ed090",
+                        "on-tertiary-container": "#f0b78f",
+                        "outline-variant": "#c2c9bb"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "24px",
+                        "xs": "4px",
+                        "md": "16px",
+                        "base": "8px",
+                        "touch-target-min": "48px",
+                        "sm": "8px",
+                        "xl": "32px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Open Sans"],
+                        "body-sm": ["Open Sans"],
+                        "headline-md": ["Roboto"],
+                        "headline-sm": ["Roboto"],
+                        "button-text": ["Roboto"],
+                        "body-lg": ["Open Sans"],
+                        "label-lg": ["Open Sans"],
+                        "display-lg": ["Roboto"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "700"}],
+                        "button-text": ["16px", {"lineHeight": "24px", "letterSpacing": "1.25px", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.5px", "fontWeight": "700"}],
+                        "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "0.25px", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen pb-xl">
+<!-- TopAppBar -->
+<header class="bg-surface shadow-sm sticky top-0 z-40 px-md flex justify-between items-center h-touch-target-min">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="A portrait of a middle-aged Peruvian farmer with a warm, weathered face, wearing a traditional straw hat. The lighting is natural and soft, suggestive of an early morning in a rural highland setting. The overall aesthetic is professional, authentic, and captures a sense of agricultural heritage and modern growth." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCtrzH8Dhq10OaKmBc9Y1PMCuX_potvtML2gpc_FhQzV2YZfGr4QodjErG-pCjHB9XCsFcuGKFmlmv3ifB3lm12u7VTMmq53UwX44TvS2S0-pxPu7ViVayp9Pg5k7YghYPaykRd7z2cOTqJwaefMscxrb-kQWfD7ph0G8quuJ0MLTMS1Q5kVrrXTbr3hKlQXOef8e9t1c6E1sQzoQZxHPt69lSwkZOUZgn4Wyu-03KDvdRQ4PSzQ-WxVEYV1x8jzaV8YWRyC7r983j6"/>
+</div>
+<h1 class="font-headline-sm text-headline-sm font-bold text-primary">Agrobanco</h1>
+</div>
+<button class="material-symbols-outlined text-primary p-xs hover:bg-surface-container-high transition-colors rounded-full" data-icon="notifications">
+            notifications
+        </button>
+</header>
+<!-- Upper Tabs -->
+<nav class="bg-surface flex w-full border-b border-outline-variant/20 px-md pt-sm">
+<div class="flex w-full justify-between overflow-x-auto gap-md">
+<button class="border-b-4 border-primary text-primary font-label-lg text-label-lg px-md py-md whitespace-nowrap">Transferir</button>
+<button class="text-on-surface-variant font-label-lg text-label-lg px-md py-md whitespace-nowrap">Pagar servicios</button>
+<button class="text-on-surface-variant font-label-lg text-label-lg px-md py-md whitespace-nowrap">QR Agro</button>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="p-md space-y-lg max-w-2xl mx-auto">
+<!-- Frequent Contacts Section -->
+<section>
+<h2 class="font-label-lg text-label-lg text-on-surface-variant mb-md px-base">Contactos Frecuentes</h2>
+<div class="flex gap-md overflow-x-auto pb-sm px-base">
+<div class="flex flex-col items-center gap-xs min-w-[72px]">
+<div class="w-[60px] h-[60px] rounded-full ring-2 ring-primary-container p-0.5">
+<img alt="Contact 1" class="w-full h-full rounded-full object-cover" data-alt="A close-up portrait of a female entrepreneur in a rural marketplace, smiling confidently at the camera. The background shows blurred stalls of vibrant agricultural produce under bright, clear daylight. The style is warm, organic, and professional, emphasizing communal growth and local commerce." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8hH-n9IWt5vk16u3uirkbo9VaClDduD_ndOEnvvk218CPcmv4aptHLImwvB9dMH8mqZMkPpbGH7Xbz4yiVw5RnF1Xs9HMlsvD6eZZL91hcaYV9wr8-71zxf5kyMhSh2KAfb_PRDd445aP6PU14Z_AMfZNUgtALuDTCIFHg-SrueQYUnPXxT4Q6gxIXVm7JouWZtbVL6x45LDW6mUxoMSVPY-KjkQXRd8XoV8NTct5fh0F481c2SbinBnAdwW_x2WeB2XbuiIqaOfc"/>
+</div>
+<span class="font-body-sm text-body-sm text-center">María R.</span>
+</div>
+<div class="flex flex-col items-center gap-xs min-w-[72px]">
+<div class="w-[60px] h-[60px] rounded-full bg-surface-container flex items-center justify-center">
+<img alt="Contact 2" class="w-full h-full rounded-full object-cover" data-alt="A friendly male cooperative leader standing in front of a modern irrigation system in a sun-drenched field. He wears a professional polo shirt and has a welcoming expression. The image style is bright, clean, and modern with high-contrast colors reflecting stable rural development." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQ9nQCKk6ep9JGvTRehifq8UgoKXfnO59KJDfe4-jyUw4a48P3EfNswZiVl4AxB7hOJsNjorwVcICSgeV9dbW3FH4m8gc2HM5lJYtddf4rDIrhXh4PbENjfS7Flvd6nRzeSnTnoQZiw7cPmorn6nYr9JL6jUoKQl20la6O4taveSQtV9xN1yE0wEt9oXZst0kyCJVXhFTtjbtjDNheHkvO2jzgTHU8J4ot8KJfAz95JOjsnBBJggSlYrE6uVxPjJbg9LU8kK3AEaVS"/>
+</div>
+<span class="font-body-sm text-body-sm text-center">José L.</span>
+</div>
+<div class="flex flex-col items-center gap-xs min-w-[72px]">
+<div class="w-[60px] h-[60px] rounded-full bg-surface-container flex items-center justify-center">
+<img alt="Contact 3" class="w-full h-full rounded-full object-cover" data-alt="A portrait of a young agricultural student wearing a white lab coat, looking thoughtfully into the distance with a green greenhouse in the background. The lighting is diffused and natural, highlighting a clean and modern academic agricultural environment. The aesthetic is focused on progress and future-forward farming." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtrYQU-hNJ2AKaEfni7d-w5ItbAn3i6Kgx9fc65zxdGksy5Hf0jj8RXVqucZ1kDVOFdaucPjer56lr2VecShMOE5tKg-u8_PmKgh0PbDFnDMxMTLAK5xyONgx3pjI7L_e81SleWWjTih6W2uivSbhaOx5jQvUVa5_uMCrgmwd4AwGKgw9zLsqSz4de9LFygBmm3QJyC8ms9xfZWHr1SlkR3CFlCC8VGLMHYglKyQpefBLS9g7WdqBIi44Yt1C9ewNkPNz2lF9B8U7_"/>
+</div>
+<span class="font-body-sm text-body-sm text-center">Elena G.</span>
+</div>
+<div class="flex flex-col items-center gap-xs min-w-[72px]">
+<div class="w-[60px] h-[60px] rounded-full bg-surface-container flex items-center justify-center border-2 border-dashed border-outline">
+<span class="material-symbols-outlined text-outline">add</span>
+</div>
+<span class="font-body-sm text-body-sm text-center">Nuevo</span>
+</div>
+</div>
+</section>
+<!-- Transfer Form -->
+<section class="bg-surface rounded-xl shadow-md p-md space-y-lg border border-outline-variant/10">
+<div class="space-y-sm">
+<label class="font-label-lg text-label-lg text-on-surface-variant px-xs">Cuenta destino</label>
+<div class="relative">
+<input class="w-full h-touch-target-min border-2 border-outline/40 rounded-lg px-md font-body-md text-body-md focus:border-primary focus:ring-0 transition-all bg-white" placeholder="Número de cuenta o CCI" type="text"/>
+<span class="material-symbols-outlined absolute right-md top-1/2 -translate-y-1/2 text-primary">contacts</span>
+</div>
+</div>
+<div class="space-y-sm">
+<label class="font-label-lg text-label-lg text-on-surface-variant px-xs">Monto en S/</label>
+<div class="relative">
+<span class="absolute left-md top-1/2 -translate-y-1/2 font-headline-sm text-on-surface-variant">S/</span>
+<input class="w-full h-[64px] border-2 border-outline/40 rounded-lg pl-[48px] pr-md font-headline-md text-headline-md focus:border-primary focus:ring-0 transition-all bg-white" placeholder="0.00" type="number"/>
+</div>
+<p class="font-body-sm text-body-sm text-primary-container px-xs">Saldo disponible: S/ 4,250.00</p>
+</div>
+<div class="space-y-sm">
+<label class="font-label-lg text-label-lg text-on-surface-variant px-xs">Referencia (Opcional)</label>
+<input class="w-full h-touch-target-min border-2 border-outline/40 rounded-lg px-md font-body-md text-body-md focus:border-primary focus:ring-0 transition-all bg-white" placeholder="Ej: Pago de semillas" type="text"/>
+</div>
+<button class="w-full h-touch-target-min bg-primary text-white font-button-text text-button-text rounded-full shadow-lg hover:bg-primary-container active:scale-95 transition-all mt-xl">
+                Continuar
+            </button>
+</section>
+</main>
+<!-- Modal Overlay (Visual Representation) -->
+<div class="fixed inset-0 bg-black/50 z-50 flex items-end md:items-center justify-center p-md">
+<div class="bg-surface w-full max-w-md rounded-t-xl md:rounded-xl p-lg shadow-xl space-y-lg animate-in slide-in-from-bottom duration-300">
+<div class="flex justify-between items-center">
+<h3 class="font-headline-sm text-headline-sm text-primary">Confirmar Transferencia</h3>
+<button class="material-symbols-outlined text-outline">close</button>
+</div>
+<div class="bg-surface-container-low rounded-xl p-md space-y-md border border-outline-variant/20">
+<div class="flex justify-between">
+<span class="font-body-sm text-on-surface-variant">Desde:</span>
+<span class="font-label-lg text-on-surface">Ahorro Tradicional (...4521)</span>
+</div>
+<div class="flex justify-between">
+<span class="font-body-sm text-on-surface-variant">Para:</span>
+<span class="font-label-lg text-on-surface">María Rodríguez (...8902)</span>
+</div>
+<div class="flex justify-between items-center pt-sm border-t border-outline-variant/30">
+<span class="font-body-sm text-on-surface-variant">Monto total:</span>
+<span class="font-headline-md text-primary">S/ 1,200.00</span>
+</div>
+</div>
+<div class="flex items-start gap-md bg-secondary-fixed/30 p-md rounded-xl">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">security</span>
+<p class="font-body-sm text-body-sm text-on-secondary-container">Esta operación es segura. Se validará su identidad en el siguiente paso.</p>
+</div>
+<div class="flex flex-col gap-sm">
+<button class="w-full h-touch-target-min bg-primary text-white font-button-text text-button-text rounded-full shadow-md active:opacity-80 transition-all">
+                    Confirmar transferencia
+                </button>
+<button class="w-full h-touch-target-min border-2 border-secondary text-secondary font-button-text text-button-text rounded-full active:bg-secondary/5 transition-all">
+                    Cancelar
+                </button>
+</div>
+</div>
+</div>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-base py-sm bg-surface shadow-md rounded-t-xl h-[80px] border-t border-outline-variant/20">
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-md py-xs hover:bg-surface-container transition-colors rounded-xl">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-lg text-label-lg mt-xs">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-md py-xs hover:bg-surface-container transition-colors rounded-xl">
+<span class="material-symbols-outlined" data-icon="account_balance_wallet">account_balance_wallet</span>
+<span class="font-label-lg text-label-lg mt-xs">Savings</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-md py-xs hover:bg-surface-container transition-colors rounded-xl">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="font-label-lg text-label-lg mt-xs">Credits</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-md py-xs scale-90 duration-200 ease-in-out">
+<span class="material-symbols-outlined" data-icon="sync_alt">sync_alt</span>
+<span class="font-label-lg text-label-lg mt-xs">Transfers</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-md py-xs hover:bg-surface-container transition-colors rounded-xl">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-lg text-label-lg mt-xs">Profile</span>
+</button>
+</nav>
+</body></html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Agrobanco - Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;family=Open+Sans:wght@400;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error-container": "#ffdad6",
+                        "on-secondary": "#ffffff",
+                        "tertiary": "#553112",
+                        "background": "#f9faf2",
+                        "on-surface": "#1a1c18",
+                        "on-background": "#1a1c18",
+                        "on-error-container": "#93000a",
+                        "surface-dim": "#d9dbd3",
+                        "surface-container-low": "#f3f4ed",
+                        "on-tertiary-fixed-variant": "#653d1e",
+                        "on-surface-variant": "#42493e",
+                        "primary": "#164212",
+                        "primary-fixed-dim": "#a1d493",
+                        "surface-container": "#edefe7",
+                        "surface-variant": "#e2e3dc",
+                        "surface-container-high": "#e7e9e1",
+                        "tertiary-container": "#704727",
+                        "secondary-container": "#feae2c",
+                        "on-primary-fixed-variant": "#24501e",
+                        "on-primary-fixed": "#002201",
+                        "surface-container-highest": "#e2e3dc",
+                        "primary-container": "#2e5a27",
+                        "surface": "#f9faf2",
+                        "secondary-fixed-dim": "#ffb955",
+                        "on-secondary-fixed-variant": "#633f00",
+                        "error": "#ba1a1a",
+                        "secondary-fixed": "#ffddb4",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-container": "#6b4500",
+                        "on-primary": "#ffffff",
+                        "primary-fixed": "#bdf0ad",
+                        "on-secondary-fixed": "#291800",
+                        "secondary": "#835500",
+                        "on-tertiary": "#ffffff",
+                        "outline": "#72796d",
+                        "surface-bright": "#f9faf2",
+                        "tertiary-fixed": "#ffdcc5",
+                        "inverse-surface": "#2e312c",
+                        "on-tertiary-fixed": "#301400",
+                        "on-error": "#ffffff",
+                        "inverse-primary": "#a1d493",
+                        "surface-tint": "#3c6934",
+                        "tertiary-fixed-dim": "#f4bb92",
+                        "inverse-on-surface": "#f0f1ea",
+                        "on-primary-container": "#9ed090",
+                        "on-tertiary-container": "#f0b78f",
+                        "outline-variant": "#c2c9bb"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "24px",
+                        "xs": "4px",
+                        "md": "16px",
+                        "base": "8px",
+                        "touch-target-min": "48px",
+                        "sm": "8px",
+                        "xl": "32px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Open Sans"],
+                        "body-sm": ["Open Sans"],
+                        "headline-md": ["Roboto"],
+                        "headline-sm": ["Roboto"],
+                        "button-text": ["Roboto"],
+                        "body-lg": ["Open Sans"],
+                        "label-lg": ["Open Sans"],
+                        "display-lg": ["Roboto"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "700"}],
+                        "button-text": ["16px", {"lineHeight": "24px", "letterSpacing": "1.25px", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.5px", "fontWeight": "700"}],
+                        "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "0.25px", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #f9faf2;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen pb-32">
+<!-- Offline Banner -->
+<div class="bg-surface-container-highest px-md py-xs flex items-center justify-center gap-base">
+<span class="material-symbols-outlined text-outline text-[18px]">cloud_off</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Sin conexión - Datos actualizados hace 5 min.</p>
+</div>
+<!-- Top App Bar -->
+<header class="flex justify-between items-center w-full px-md h-touch-target-min shadow-sm bg-surface sticky top-0 z-50">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full bg-primary-fixed overflow-hidden">
+<img alt="Profile photo" class="w-full h-full object-cover" data-alt="Close-up portrait of a cheerful Peruvian farmer in his late 40s, wearing a traditional straw hat and a clean denim shirt. The lighting is warm and natural, suggesting an outdoor rural setting during the golden hour. The visual style is professional, high-contrast, and clean, reflecting a modern corporate banking identity with a focus on human connection." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2HjYuGfnPTRkMKeBHdYx8j4Bdydq0wKY6OYVsuvTS5-poqaHbm6TkDnmd3DK3-jo9SJbzcLF85dP-JH57X9sTrapfaXA-AgUGJ-SQh6qMjaRmJZHakBjj07sXAnHYip2-vDgi7btpTyK-0IvArrool_D2cw5WXGZuCfDVN3HmTJIlt0f5KrQsCTeSeWRScALrrdywGtyRHz2Q6np2YvsENg49fy0pTNu2bGYityMy3elOhwdCwHELZS-hslADAAoHYO1bf69Iwrim"/>
+</div>
+<h1 class="font-headline-sm text-headline-sm font-bold text-primary">Agrobanco</h1>
+</div>
+<button class="w-touch-target-min h-touch-target-min flex items-center justify-center rounded-full hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-primary">notifications</span>
+</button>
+</header>
+<main class="px-md mt-lg space-y-lg max-w-2xl mx-auto">
+<!-- Saludo -->
+<section>
+<h2 class="font-headline-md text-headline-md text-on-background">¡Buenos días, Juan Carlos!</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Jueves, 24 de Octubre 2024</p>
+</section>
+<!-- Main Balance Card -->
+<section class="bg-primary-container rounded-xl p-lg shadow-md relative overflow-hidden">
+<!-- Decorative texture -->
+<div class="absolute top-0 right-0 opacity-10 pointer-events-none transform translate-x-1/4 -translate-y-1/4">
+<span class="material-symbols-outlined text-[120px]" style="font-variation-settings: 'FILL' 1;">agriculture</span>
+</div>
+<div class="flex justify-between items-start mb-sm">
+<span class="font-label-lg text-label-lg text-on-primary-container opacity-90">Saldo total disponible</span>
+<span class="material-symbols-outlined text-on-primary-container cursor-pointer">visibility</span>
+</div>
+<div class="flex items-baseline gap-xs">
+<span class="font-headline-sm text-headline-sm text-on-primary-container">S/</span>
+<span class="font-display-lg text-display-lg text-on-primary-container tracking-tight">12,450.00</span>
+</div>
+<div class="mt-lg flex gap-md">
+<button class="bg-secondary-container text-on-secondary-container px-md py-sm rounded-lg font-button-text text-button-text flex-1 shadow-sm active:scale-95 transition-all">
+                    Cargar saldo
+                </button>
+<button class="bg-surface/20 text-on-primary border border-on-primary/30 px-md py-sm rounded-lg font-button-text text-button-text flex-1 active:scale-95 transition-all">
+                    Detalle
+                </button>
+</div>
+</section>
+<!-- Quick Access Grid (Bento Style) -->
+<section class="grid grid-cols-4 gap-sm">
+<div class="col-span-2 bg-surface p-md rounded-xl shadow-sm flex flex-col gap-sm border border-outline-variant/10">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary-fixed">savings</span>
+</div>
+<span class="font-label-lg text-label-lg text-on-surface">Ahorros</span>
+</div>
+<div class="col-span-2 bg-surface p-md rounded-xl shadow-sm flex flex-col gap-sm border border-outline-variant/10">
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-fixed">description</span>
+</div>
+<span class="font-label-lg text-label-lg text-on-surface">Créditos</span>
+</div>
+<div class="col-span-1 bg-surface py-md px-xs rounded-xl shadow-sm flex flex-col items-center gap-xs border border-outline-variant/10">
+<span class="material-symbols-outlined text-primary">sync_alt</span>
+<span class="text-[12px] font-bold text-on-surface">Transferir</span>
+</div>
+<div class="col-span-1 bg-surface py-md px-xs rounded-xl shadow-sm flex flex-col items-center gap-xs border border-outline-variant/10">
+<span class="material-symbols-outlined text-primary">qr_code_2</span>
+<span class="text-[12px] font-bold text-on-surface">Pagar</span>
+</div>
+<div class="col-span-2 bg-surface p-md rounded-xl shadow-sm flex items-center justify-between border border-outline-variant/10">
+<div class="flex flex-col gap-xs">
+<span class="material-symbols-outlined text-tertiary">help</span>
+<span class="font-label-lg text-label-lg text-on-surface">Soporte</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+</div>
+</section>
+<!-- Recent Movements -->
+<section class="space-y-md">
+<div class="flex justify-between items-center">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Últimos movimientos</h3>
+<button class="font-label-lg text-label-lg text-primary">Ver todo</button>
+</div>
+<div class="bg-surface rounded-xl shadow-sm divide-y divide-outline-variant/10">
+<!-- Transferencia -->
+<div class="p-md flex justify-between items-center hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">payments</span>
+</div>
+<div>
+<p class="font-body-md font-bold text-on-surface">Transferencia a terceros</p>
+<p class="font-body-sm text-on-surface-variant">24 Oct - 09:15 AM</p>
+</div>
+</div>
+<p class="font-body-md font-bold text-error">- S/ 150.00</p>
+</div>
+<!-- Depósito -->
+<div class="p-md flex justify-between items-center hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">account_balance_wallet</span>
+</div>
+<div>
+<p class="font-body-md font-bold text-on-surface">Depósito de cosecha</p>
+<p class="font-body-sm text-on-surface-variant">23 Oct - 14:30 PM</p>
+</div>
+</div>
+<p class="font-body-md font-bold text-primary">+ S/ 3,200.00</p>
+</div>
+<!-- Pago -->
+<div class="p-md flex justify-between items-center hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">receipt_long</span>
+</div>
+<div>
+<p class="font-body-md font-bold text-on-surface">Pago de Crédito #402</p>
+<p class="font-body-sm text-on-surface-variant">22 Oct - 10:00 AM</p>
+</div>
+</div>
+<p class="font-body-md font-bold text-error">- S/ 850.00</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-base py-sm bg-surface shadow-md rounded-t-xl h-[80px] border-t border-outline-variant/20">
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-md py-xs active:scale-90 duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-lg text-label-lg">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-md py-xs hover:bg-surface-container transition-colors" href="#">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="font-label-lg text-label-lg">Savings</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-md py-xs hover:bg-surface-container transition-colors" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-lg text-label-lg">Credits</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-md py-xs hover:bg-surface-container transition-colors" href="#">
+<span class="material-symbols-outlined">sync_alt</span>
+<span class="font-label-lg text-label-lg">Transfers</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-md py-xs hover:bg-surface-container transition-colors" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-lg text-label-lg">Profile</span>
+</a>
+</nav>
+</body></html>

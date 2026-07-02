@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Agrobanco - Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;family=Open+Sans:wght@400;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error-container": "#ffdad6",
+                        "on-secondary": "#ffffff",
+                        "tertiary": "#553112",
+                        "background": "#f9faf2",
+                        "on-surface": "#1a1c18",
+                        "on-background": "#1a1c18",
+                        "on-error-container": "#93000a",
+                        "surface-dim": "#d9dbd3",
+                        "surface-container-low": "#f3f4ed",
+                        "on-tertiary-fixed-variant": "#653d1e",
+                        "on-surface-variant": "#42493e",
+                        "primary": "#164212",
+                        "primary-fixed-dim": "#a1d493",
+                        "surface-container": "#edefe7",
+                        "surface-variant": "#e2e3dc",
+                        "surface-container-high": "#e7e9e1",
+                        "tertiary-container": "#704727",
+                        "secondary-container": "#feae2c",
+                        "on-primary-fixed-variant": "#24501e",
+                        "on-primary-fixed": "#002201",
+                        "surface-container-highest": "#e2e3dc",
+                        "primary-container": "#2e5a27",
+                        "surface": "#f9faf2",
+                        "secondary-fixed-dim": "#ffb955",
+                        "on-secondary-fixed-variant": "#633f00",
+                        "error": "#ba1a1a",
+                        "secondary-fixed": "#ffddb4",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-container": "#6b4500",
+                        "on-primary": "#ffffff",
+                        "primary-fixed": "#bdf0ad",
+                        "on-secondary-fixed": "#291800",
+                        "secondary": "#835500",
+                        "on-tertiary": "#ffffff",
+                        "outline": "#72796d",
+                        "surface-bright": "#f9faf2",
+                        "tertiary-fixed": "#ffdcc5",
+                        "inverse-surface": "#2e312c",
+                        "on-tertiary-fixed": "#301400",
+                        "on-error": "#ffffff",
+                        "inverse-primary": "#a1d493",
+                        "surface-tint": "#3c6934",
+                        "tertiary-fixed-dim": "#f4bb92",
+                        "inverse-on-surface": "#f0f1ea",
+                        "on-primary-container": "#9ed090",
+                        "on-tertiary-container": "#f0b78f",
+                        "outline-variant": "#c2c9bb"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "24px",
+                        "xs": "4px",
+                        "md": "16px",
+                        "base": "8px",
+                        "touch-target-min": "48px",
+                        "sm": "8px",
+                        "xl": "32px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Open Sans"],
+                        "body-sm": ["Open Sans"],
+                        "headline-md": ["Roboto"],
+                        "headline-sm": ["Roboto"],
+                        "button-text": ["Roboto"],
+                        "body-lg": ["Open Sans"],
+                        "label-lg": ["Open Sans"],
+                        "display-lg": ["Roboto"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "700"}],
+                        "button-text": ["16px", {"lineHeight": "24px", "letterSpacing": "1.25px", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.5px", "fontWeight": "700"}],
+                        "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "0.25px", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md">
+<!-- Hero Visual / Brand Header -->
+<header class="w-full pt-xl pb-lg flex flex-col items-center justify-center bg-surface-container-low">
+<div class="flex flex-col items-center gap-md">
+<!-- Stylized Corn Grain Logo -->
+<div class="w-16 h-16 bg-primary-container rounded-full flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined text-on-primary-container text-[40px]" data-icon="agriculture" data-weight="fill" style="font-variation-settings: 'FILL' 1;">agriculture</span>
+</div>
+<h1 class="font-headline-md text-headline-md text-primary tracking-tight">Agrobanco</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant px-xl text-center">Tu socio en el crecimiento del campo peruano.</p>
+</div>
+</header>
+<main class="flex-grow flex items-start justify-center px-md py-lg">
+<div class="w-full max-w-md flex flex-col gap-lg">
+<!-- Login Card -->
+<div class="bg-surface-container-lowest rounded-xl p-lg shadow-sm border border-outline-variant/10">
+<form class="flex flex-col gap-md">
+<!-- Document Field -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-lg text-label-lg text-on-surface-variant" for="dni">Número de documento</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-md text-outline" data-icon="badge">badge</span>
+<input class="w-full h-touch-target-min pl-[48px] pr-md border-outline-variant rounded-lg bg-surface focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all font-body-md" id="dni" placeholder="Ej: 12345678" type="number"/>
+</div>
+</div>
+<!-- Password Field -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-lg text-label-lg text-on-surface-variant" for="password">Clave de acceso</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-md text-outline" data-icon="lock">lock</span>
+<input class="w-full h-touch-target-min pl-[48px] pr-[48px] border-outline-variant rounded-lg bg-surface focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all font-body-md" id="password" placeholder="Tu clave secreta" type="password"/>
+<button class="absolute right-md h-touch-target-min flex items-center justify-center text-outline hover:text-primary transition-colors" type="button">
+<span class="material-symbols-outlined" data-icon="visibility">visibility</span>
+</button>
+</div>
+</div>
+<!-- Remember & Forgot -->
+<div class="flex items-center justify-between py-xs">
+<label class="flex items-center gap-base cursor-pointer">
+<input class="w-5 h-5 rounded border-outline text-primary-container focus:ring-primary" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface">Recordar mi documento</span>
+</label>
+<a class="font-label-lg text-label-lg text-primary hover:underline" href="#">¿Olvidaste tu clave?</a>
+</div>
+<!-- Main Login Button -->
+<button class="w-full h-touch-target-min bg-primary-container text-on-primary font-button-text text-button-text rounded-full shadow-md hover:bg-primary transition-all active:scale-95 flex items-center justify-center gap-sm mt-md" type="submit">
+                        Ingresar a Agrobanco
+                        <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</form>
+<!-- Signup Redirect -->
+<div class="mt-lg pt-lg border-t border-outline-variant/30 text-center">
+<p class="font-body-sm text-body-sm text-on-surface-variant">¿No tienes una cuenta? <a class="text-primary font-bold hover:underline" href="#">Regístrate aquí</a></p>
+</div>
+</div>
+<!-- New User Section -->
+<div class="flex flex-col items-center gap-md">
+<div class="flex items-center w-full gap-md">
+<div class="h-[1px] flex-grow bg-outline-variant"></div>
+<span class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">Nuevo en Agrobanco</span>
+<div class="h-[1px] flex-grow bg-outline-variant"></div>
+</div>
+<button class="w-full h-touch-target-min border-2 border-primary text-primary font-button-text text-button-text rounded-full hover:bg-primary/5 transition-all active:scale-95 flex items-center justify-center gap-sm">
+<span class="material-symbols-outlined" data-icon="person_add">person_add</span>
+                    Registrarme
+                </button>
+</div>
+<!-- Promotional Card (Visual Interest) -->
+<div class="relative w-full h-32 rounded-xl overflow-hidden shadow-sm group">
+<div class="absolute inset-0 bg-gradient-to-r from-primary/90 to-transparent z-10 flex flex-col justify-center px-lg">
+<p class="font-headline-sm text-white">Créditos para tu campaña</p>
+<p class="font-body-sm text-white/80">Sustento para tu crecimiento.</p>
+</div>
+<img class="w-full h-full object-cover grayscale-[20%] group-hover:scale-105 transition-transform duration-700" data-alt="A lush Peruvian highland agricultural field at sunrise with golden sunlight hitting the rows of green crops. The atmosphere is crisp and productive, reflecting the growth and prosperity of rural farming. The visual style is high-contrast, professional photography with vibrant greens and earthy tones to match the Agrobanco brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBycWRxgUlfCB5PAuNUaQ62s9vgbZTbJGsdc0-t9KDGjjLV094W91IR810qJ0ZxH0KLT4ZRukh1Pu0-XaDFf4Vs6kBdKRRFePHZ4aLIWuGpSe0kEtpf7stjpcTQhCvQzux0zG1_drCBGFXiZldX-YJ-aN1PrDVDsQJENBwH_niHDJWH7bVV3A6GO1vOEDhGrZ7lMhwMI63cq-K6FkDLl3dpWokkITkKG84yuagn6yiKyeNDSG-gmcHqvmpYhsWYvBZEaWkLErMGvXK"/>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-lg px-md flex flex-col items-center justify-center bg-surface-container gap-sm">
+<div class="flex items-center gap-sm text-primary">
+<span class="material-symbols-outlined text-[20px]" data-icon="call">call</span>
+<span class="font-button-text text-button-text">Banca Telefónica: 0800-AGRO (2476)</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">© 2024 Agrobanco. Todos los derechos reservados.</p>
+</footer>
+</body></html>
