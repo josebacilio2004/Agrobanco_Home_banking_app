@@ -80,7 +80,8 @@ class ProfileScreen extends ConsumerWidget {
                 const SizedBox(height: 32),
                 OutlinedButton.icon(
                   onPressed: () async {
-                    await ref.read(authServiceProvider).signOut();
+                    ref.read(apiClientProvider).logout();
+                    ref.read(authStateProvider.notifier).state = false;
                     if (context.mounted) {
                       Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute(builder: (context) => const LoginScreen()),

@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -33,7 +32,7 @@ class DashboardScreen extends ConsumerWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const SizedBox(height: 16),
-                        _buildHeader(context, user?.photoURL),
+                        _buildHeader(context),
                         const SizedBox(height: 24),
                         Text(
                           '¡Buenos días, ${user?.displayName ?? 'Cliente'}!',
@@ -116,24 +115,14 @@ class DashboardScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildHeader(BuildContext context, String? photoUrl) {
+  Widget _buildHeader(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         CircleAvatar(
           radius: 20,
           backgroundColor: AgroTheme.primaryGreen.withOpacity(0.1),
-          child: photoUrl != null
-              ? ClipOval(
-                  child: Image.network(
-                    photoUrl,
-                    fit: BoxFit.cover,
-                    width: 40,
-                    height: 40,
-                    errorBuilder: (context, error, stackTrace) => const Icon(Icons.person, color: AgroTheme.primaryGreen),
-                  ),
-                )
-              : const Icon(Icons.person, color: AgroTheme.primaryGreen),
+          child: const Icon(Icons.person, color: AgroTheme.primaryGreen),
         ),
         Text(
           'Agrobanco',
@@ -435,12 +424,12 @@ class _ErrorCard extends StatelessWidget {
             style: const TextStyle(color: Colors.red, fontSize: 12),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 8),
-          const Text(
-            'Si es un error de índice, créalo en la consola de Firebase usando el link de arriba.',
-            style: TextStyle(color: Colors.red, fontSize: 10, fontStyle: FontStyle.italic),
-            textAlign: TextAlign.center,
-          ),
+                          const SizedBox(height: 8),
+                          const Text(
+                            'Verifica tu conexión e intenta de nuevo.',
+                            style: TextStyle(color: Colors.red, fontSize: 10, fontStyle: FontStyle.italic),
+                            textAlign: TextAlign.center,
+                          ),
         ],
       ),
     );

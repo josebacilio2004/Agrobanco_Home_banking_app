@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import '../theme/agro_theme.dart';
 import '../theme/glass_widgets.dart';
 import '../services/banking_services.dart';
-import '../utils/seed_data.dart';
 import 'main_screen.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
@@ -16,16 +14,17 @@ class LoginScreen extends ConsumerStatefulWidget {
 }
 
 class _LoginScreenState extends ConsumerState<LoginScreen> {
-  final _emailController = TextEditingController(text: 'demo@agrobanco.pe');
-  final _passwordController = TextEditingController(text: 'password123');
+  final _dniController = TextEditingController(text: '40118120');
+  final _passwordController = TextEditingController(text: 'agrobanco');
   bool _isLoading = false;
   bool _obscurePassword = true;
 
   Future<void> _handleLogin() async {
     setState(() => _isLoading = true);
     try {
-      final auth = ref.read(authServiceProvider);
-      await auth.signIn(_emailController.text, _passwordController.text);
+      final api = ref.read(apiClientProvider);
+      await api.login(_dniController.text.trim(), _passwordController.text);
+      ref.read(authStateProvider.notifier).state = true;
       if (mounted) {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => const MainScreen()),
@@ -36,42 +35,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Error: ${e.toString()}'),
-            backgroundColor: AgroTheme.errorRed,
-          ),
-        );
-      }
-    } finally {
-      if (mounted) setState(() => _isLoading = false);
-    }
-  }
-
-  Future<void> _handleDemoLogin() async {
-    setState(() => _isLoading = true);
-    try {
-      final auth = FirebaseAuth.instance;
-      try {
-        await auth.signInWithEmailAndPassword(
-          email: 'demo@agrobanco.pe',
-          password: 'password123',
-        );
-      } catch (e) {
-        await auth.createUserWithEmailAndPassword(
-          email: 'demo@agrobanco.pe',
-          password: 'password123',
-        );
-        await SeedData.seedDemoData();
-      }
-
-      if (mounted) {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const MainScreen()),
-        );
-      }
-    } catch (e) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Error Demo: ${e.toString()}'),
             backgroundColor: AgroTheme.errorRed,
           ),
         );
@@ -144,12 +107,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             style: TextStyle(color: AgroTheme.textMuted, fontSize: 13.5, height: 1.4),
                           ),
                           const SizedBox(height: 28),
-                          _buildLabel('Correo electrónico'),
+                          _buildLabel('DNI'),
                           GlassTextField(
-                            controller: _emailController,
-                            keyboardType: TextInputType.emailAddress,
-                            hintText: 'ejemplo@agrobanco.pe',
-                            prefixIcon: const Icon(Icons.email_outlined, size: 20),
+                            controller: _dniController,
+                            keyboardType: TextInputType.number,
+                            hintText: 'DNI del cliente',
+                            prefixIcon: const Icon(Icons.badge_outlined, size: 20),
                           ),
                           const SizedBox(height: 20),
                           _buildLabel('Contraseña'),
@@ -182,8 +145,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             ),
                             const SizedBox(height: 16),
                             GlassButton(
-                              text: 'Acceso Demo (Auto-Seed)',
-                              onPressed: _handleDemoLogin,
+                              text: 'Acceso Rápido (Demo)',
+                              onPressed: _handleLogin,
                               isSecondary: true,
                               icon: Icons.flash_on_rounded,
                             ),
